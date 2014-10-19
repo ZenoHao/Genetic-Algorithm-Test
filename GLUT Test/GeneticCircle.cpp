@@ -29,34 +29,39 @@ GeneticCircle::GeneticCircle(int gen, std::vector<Circle*> circles){
     for(int i = 0; i < NUM_CHILD; i ++){
         children.push_back(new Circle((static_cast <float> (rand()) / static_cast <float> (RAND_MAX) - 0.5),
                                       (static_cast <float> (rand()) / static_cast <float> (RAND_MAX) - 0.5),
-                                      static_cast <float> (rand()) / static_cast <float> (RAND_MAX)));
+                                     0));
     }
 }
 
 void GeneticCircle::morph(){
     std::cout << "mutating" << std::endl;
-    srand(time(NULL));
     int num = 0;
     for(int i = 0; i < children.size(); i++){
         num = rand()%3 + 1;
         switch(num){
             case 1:
                 std::cout << "Mutating X value of child " << i << std::endl;
+                std::cout << "\tPrev X value:\t" << children.at(i)->getX() << std::endl;
                 while(children.at(i)->getX() < -1 || children.at(i)->getX() > 1)
                     children.at(i)->setX(children.at(i)->getX() +
-                                         (static_cast <float> (rand()) / static_cast <float> (RAND_MAX) - 0.5)/10.);
+                                         (static_cast <float> (rand()) / static_cast <float> (RAND_MAX) - 0.5)/100.);
+                std::cout << "\tNew X value:\t" << children.at(i)->getX() << std::endl;
                 break;
             case 2:
                 std::cout << "Mutating Y value of child " << i << std::endl;
+                std::cout << "\tPrev Y value:\t" << children.at(i)->getX() << std::endl;
                 while(children.at(i)->getY() < -1 || children.at(i)->getY() > 1)
                     children.at(i)->setY(children.at(i)->getY() +
-                                         (static_cast <float> (rand()) / static_cast <float> (RAND_MAX) - 0.5)/10.);
+                                         (static_cast <float> (rand()) / static_cast <float> (RAND_MAX) - 0.5)/100.);
+                std::cout << "\tNew Y value:\t" << children.at(i)->getX() << std::endl;
                 break;
             case 3:
                 std::cout << "Mutating Radius value of child " << i << std::endl;
-                while(children.at(i)->getRadius() < 0)
+                std::cout << "\tPrev radius:\t" << children.at(i)->getRadius() << std::endl;
+                while(children.at(i)->getRadius() <= 0)
                     children.at(i)->setRadius(children.at(i)->getRadius() +
-                                              (static_cast <float> (rand()) / static_cast <float> (RAND_MAX) - 0.5)/10.);
+                                              (static_cast <float> (rand()) / static_cast <float> (RAND_MAX))/100.);
+                std::cout << "\tNew radius:\t" << children.at(i)->getRadius() << std::endl;
                 break;
             default:
                 // oh god something went wrong;
@@ -68,29 +73,23 @@ void GeneticCircle::morph(){
 void GeneticCircle::eval(){
     std::cout << "evaulating" << std::endl;
     // sort by largest radius that is within window and does not touch any other circle
-    std::deque<Circle*>temp = children;
-    bool unfit = true;
-    for(int i = 0; children.size() > 0; i ++)
-        children.pop_front();
-    std::cout << "Size is:\t" << children.size() << std::endl;
-    for(int i = 0; i < temp.size(); i ++){
-        unfit = false;
-        // if the circle touches an existing circle, then push it to the end of deque
-        // check this by comparing their straight line distance ot their radii
-        // if combined radii greater than distance, then the circle is unfit.
-        for(int j = 0; j < circles.size(); j++){
-            if(temp.at(i)->getRadius() + circles.at(j)->getRadius() >
-               sqrt(pow(temp.at(i)->getX() - circles.at(j)->getX(),2) +
-                    pow(temp.at(i)->getY() - circles.at(j)->getY(),2))){
-                   break;
-               }
-            else
-                children.push_back(temp.at(i));
+    for(Circle* c: children){
+        for(Circle* d: circles){
+            if(d->getRadius() >
+               sqrt(pow(c->getX() - d->getX(),2) + pow(c->getY() - d->getY(),2))){
+                c->setRadius(0);
+                break;
+            }
+            else if(c->getRadius() + d->getRadius() >
+               sqrt(pow(c->getX() - d->getX(),2) + pow(c->getY() - d->getY(),2))){
+                // if the circle is just touching another circle
+                c->setRadius(d->getRadius() - sqrt(pow(c->getX() - d->getX(),2) + pow(c->getY() - d->getY(),2)));
+                c->setRadius(0);
+                std::cout << "Setting radius to zero" << std::endl;
+                break;
+            }
         }
     }
-    std::cout << "Size is:\t" << children.size() << std::endl;
-    for(int i = 0; temp.size() > 0; i ++)
-        temp.pop_front();
     // after sorting unfit candidates to the end of deque, sort by radius
     std::sort(children.begin(), children.end(), compare);
 }
@@ -99,7 +98,6 @@ void GeneticCircle::mate(){
     Circle* child2;
     // get fittest children and combine their attributes
     std::cout << "mating" << std::endl;
-    srand(time(0));
     int swap = 0;
     double temp = 0;
     for(int i = children.size()/4 - 1; i < children.size(); i++){
@@ -163,7 +161,7 @@ Circle* GeneticCircle::generate(){
         std::cout << "-----------GENERATION " << i << "--------------" << std::endl;
         morph();
         eval();
-        mate();
+        //mate();
         if(children.size() > 0){
             std::cout << "Child stats" << std::endl;
             std::cout << "X:\t" << children.at(0)->getX() << std::endl;

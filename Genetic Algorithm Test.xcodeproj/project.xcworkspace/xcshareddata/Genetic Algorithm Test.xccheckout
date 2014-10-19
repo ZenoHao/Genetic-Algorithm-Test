@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>2A0BCC07-DA71-4C76-A26F-9675B1388563</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Genetic Algorithm Test</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>36FD132E404E8D4833F2A40D61B3F28B3D1306A7</key>
+		<string>https://github.com/ZenoHao/Genetic-Algorithm-Test.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Genetic Algorithm Test.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>36FD132E404E8D4833F2A40D61B3F28B3D1306A7</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/ZenoHao/Genetic-Algorithm-Test.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>36FD132E404E8D4833F2A40D61B3F28B3D1306A7</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>36FD132E404E8D4833F2A40D61B3F28B3D1306A7</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Genetic%20Algorithm%20Test</string>
+		</dict>
+	</array>
+</dict>
+</plist>

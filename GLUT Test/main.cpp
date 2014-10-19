@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
                                      2*(static_cast <float> (rand()) / static_cast <float> (RAND_MAX) - 0.5),
                                      static_cast <float> (rand()) / static_cast <float> (RAND_MAX)/3));
     }
-    GeneticCircle gen = GeneticCircle(100, circles);
+    GeneticCircle gen = GeneticCircle(1000, circles);
     result = gen.generate();
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
