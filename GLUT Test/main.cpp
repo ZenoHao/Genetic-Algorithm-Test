@@ -8,6 +8,7 @@
 #include <iostream>
 
 #define NUM_CIRCLES 10
+#define NUM_GENERATIONS 10000
 #define WIN_DIM 500
 
 std::vector<Circle*> circles;
@@ -49,7 +50,7 @@ int main(int argc, char **argv) {
                                      2*(static_cast <float> (rand()) / static_cast <float> (RAND_MAX) - 0.5),
                                      static_cast <float> (rand()) / static_cast <float> (RAND_MAX)/3));
     }
-    GeneticCircle gen = GeneticCircle(1000, circles);
+    GeneticCircle gen = GeneticCircle(NUM_GENERATIONS, circles);
     result = gen.generate();
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);

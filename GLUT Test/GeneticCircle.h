@@ -24,6 +24,7 @@ private:
     int gen;
     std::vector<Circle*> circles;
     std::deque<Circle*> children;
+    Circle* best;
     void morph();
     void eval();
     void mate();
